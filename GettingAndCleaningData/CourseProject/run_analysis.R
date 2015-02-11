@@ -1,0 +1,6 @@
+download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", "activity.zip", method = "curl")
+unzip("activity.zip")
+library(data.table)
+test_set <- read.table("UCI HAR Dataset//test//X_test.txt")
+summary(train_set)
+head("UCI HAR Dataset//test//X_test.txt")
