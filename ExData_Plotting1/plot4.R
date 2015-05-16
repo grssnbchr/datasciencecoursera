@@ -1,0 +1,17 @@
+# assumes that file has already been downloaded and unzipped
+epc <- read.csv2('household_power_consumption.txt', sep=";", na.strings = "?", colClasses = "character")
+head(epc)
+epc$DateTime <- strptime(paste(epc$Date, epc$Time), "%d/%m/%Y %H:%M:%S")
+epc_subset <- subset(epc, epc$Date == "1/2/2007" | epc$Date == "2/2/2007")
+png("plot4.png")
+par(mfrow = c(2,2))
+plot(epc_subset$DateTime, epc_subset$Global_active_power, xlab = "", ylab = "Global Active Power", type = "l")
+plot(epc_subset$DateTime, epc_subset$Voltage, xlab = "datetime", ylab = "Voltage", type = "l")
+plot(epc_subset$DateTime, epc_subset$Sub_metering_1, xlab = "", ylab = "Energy sub metering", type = "n")
+lines(epc_subset$DateTime, epc_subset$Sub_metering_1, col = "black")
+lines(epc_subset$DateTime, epc_subset$Sub_metering_2, col = "red")
+lines(epc_subset$DateTime, epc_subset$Sub_metering_3, col = "blue")
+legend("topright", col = c("black", "red", "blue"), legend  = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty = 1)
+plot(epc_subset$DateTime, epc_subset$Global_reactive_power, xlab = "datetime", ylab = "Global_reactive_power", type = "l")
+
+dev.off()
